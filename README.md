@@ -23,5 +23,13 @@ An advanced extension to customize and enhance your **Agar.io** gameplay experie
 
 ---
 
-## License
-This project is open-source and available under the [MIT License](LICENSE).
+
+
+>[!CAUTION]
+>Important Legal and Educational Disclaimer:
+The following content is provided for educational and awareness purposes only, aimed at raising security awareness and understanding how to protect systems and data. The author or developer is completely absolved of any responsibility for any misuse, illegal, or harmful use of this information and tools. Using this knowledge in any disruptive or unauthorized activity is solely your own personal responsibility.
+
+
+---
+
+**Made with ❤️ by BayLak (Egypt <img src="https://github.com/user-attachments/assets/637a365d-98e8-4a47-814c-11965370d212" width="35" height="15" alt="Egypt flag"/>)**
