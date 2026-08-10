@@ -21,14 +21,6 @@ An advanced extension to customize and enhance your **Agar.io** gameplay experie
 2. Open **Agar.io** and press **F1** to toggle the configuration menu.
 3. Customize your settings and enjoy the game!
 
----
-
-
-
->[!CAUTION]
->Important Legal and Educational Disclaimer:
-The following content is provided for educational and awareness purposes only, aimed at raising security awareness and understanding how to protect systems and data. The author or developer is completely absolved of any responsibility for any misuse, illegal, or harmful use of this information and tools. Using this knowledge in any disruptive or unauthorized activity is solely your own personal responsibility.
-
 
 ---
 
