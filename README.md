@@ -1,3 +1,5 @@
+<img width="1283" height="683" alt="Screenshot from 2026-08-10 13-48-13" src="https://github.com/user-attachments/assets/f610d1d1-d95d-4aa3-a604-155a0ebdd7a9" />
+
 # Agar.io Advanced Customization Extension
 
 An advanced extension to customize and enhance your **Agar.io** gameplay experience. It lets you configure UI themes, custom ball colors, smart map bounds, helper lines, and block annoying ads for a smoother, professional experience.
