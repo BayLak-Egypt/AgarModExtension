@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Menu Mod - Agar.io",
+  "version": "1.0",
+  "description": "Advanced game mods and helper lines menu",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_icon": "logo.png"
+  },
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.agar.io/*", "*://*.nectars.io/*"],
+      "js": ["menu-ui.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "logo.png",
+        "lang.json",
+        "plugin-helper-lines.js",
+        "plugin-adsblock.js",
+        "plugin-mapbounds.js",
+        "plugin-ball-customizer.js",
+        "plugin-map-customizer.js",
+        "plugin-leaderboard.js"
+      ],
+      "matches": ["*://*.agar.io/*", "*://*.nectars.io/*"]
+    }
+  ]
+}
