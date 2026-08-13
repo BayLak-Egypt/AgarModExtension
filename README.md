@@ -8,6 +8,7 @@ An advanced extension to customize and enhance your **Agar.io** gameplay experie
 
 ## Features New 
 - ⭐ **Fixed:** hide basic leaderborder.
+- ⭐ **Fixed:** Rearranging the elements
 
 
 
