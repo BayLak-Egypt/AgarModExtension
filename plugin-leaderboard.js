@@ -93,27 +93,55 @@
     let playersMap = {};
     let cachedHTML = "";
 
+    function shouldHideOriginal() {
+        try {
+            const host = document.getElementById('menu-host');
+            if (host && host.shadowRoot) {
+                const isHideChecked = host.shadowRoot.getElementById('chk-hide-leaderboard')?.checked;
+                const themeSelect = host.shadowRoot.getElementById('select-theme-style');
+                
+                if (themeSelect) {
+                    themeSelect.disabled = !!isHideChecked;
+                }
+
+                const selectedTheme = themeSelect ? themeSelect.value : 'off';
+                // إخفاء الأصلي إذا كان الشيك بوكس مفعلاً أو الثيم غير مغلق
+                return isHideChecked || selectedTheme !== 'off';
+            }
+        } catch (e) {}
+        return false;
+    }
+
+    function isCustomPanelDisabled() {
+        try {
+            const host = document.getElementById('menu-host');
+            if (host && host.shadowRoot) {
+                const isHideChecked = host.shadowRoot.getElementById('chk-hide-leaderboard')?.checked;
+                const themeSelect = host.shadowRoot.getElementById('select-theme-style');
+                const selectedTheme = themeSelect ? themeSelect.value : 'off';
+                
+                // إلغاء الليدر بورد المخصص فقط إذا تم تفعيل الـ Checkbox أو كان الثيم 'off'
+                return isHideChecked || selectedTheme === 'off';
+            }
+        } catch (e) {}
+        return false;
+    }
+
     try {
         if (!window._originalDrawImage) {
             window._originalDrawImage = CanvasRenderingContext2D.prototype.drawImage;
         }
 
         CanvasRenderingContext2D.prototype.drawImage = function(...args) {
-            try {
-                const host = document.getElementById('menu-host');
-                if (host && host.shadowRoot) {
-                    const isHideChecked = host.shadowRoot.getElementById('chk-hide-leaderboard')?.checked;
-                    const themeSelect = host.shadowRoot.getElementById('select-theme-style');
-                    const selectedTheme = themeSelect ? themeSelect.value : 'off';
+            if (!shouldHideOriginal()) {
+                return window._originalDrawImage.apply(this, args);
+            }
 
-                    if (isHideChecked || selectedTheme !== 'off') {
-                        let x = args[1];
-                        let y = args[2];
-                        // تم توسيع النطاق هنا لضمان التقاط وإخفاء اللوحة القديمة بدقة
-                        if (typeof x === 'number' && typeof y === 'number' && x > window.innerWidth - 450 && y < 400) {
-                            return; 
-                        }
-                    }
+            try {
+                let x = args[1];
+                let y = args[2];
+                if (typeof x === 'number' && typeof y === 'number' && x > window.innerWidth - 450 && y < 400) {
+                    return; // إخفاء الليدر بورد الأصلي المرسوم على الـ Canvas
                 }
             } catch (e) {}
 
@@ -128,14 +156,17 @@
         CanvasRenderingContext2D.prototype.fillText = function(text, x, y, maxWidth) {
             const result = origFillText.apply(this, arguments);
 
+            if (isCustomPanelDisabled()) {
+                return result;
+            }
+
             try {
                 const host = document.getElementById('menu-host');
                 if (host && host.shadowRoot) {
-                    const isHideChecked = host.shadowRoot.getElementById('chk-hide-leaderboard')?.checked;
                     const themeSelect = host.shadowRoot.getElementById('select-theme-style');
                     const selectedTheme = themeSelect ? themeSelect.value : 'off';
 
-                    if (!isHideChecked && selectedTheme !== 'off' && text && text.length > 1 && text !== "Score" && text !== "Leaderboard" && !text.includes(":")) {
+                    if (selectedTheme !== 'off' && text && text.length > 1 && text !== "Score" && text !== "Leaderboard" && !text.includes(":")) {
                         let cleanText = text.trim();
                         const match = cleanText.match(/^([0-9]{1,2})\.\s*(.*)$/);
                         if (match) {
@@ -153,14 +184,7 @@
 
     setInterval(() => {
         try {
-            const host = document.getElementById('menu-host');
-            if (!host || !host.shadowRoot) return;
-
-            const isHideChecked = host.shadowRoot.getElementById('chk-hide-leaderboard')?.checked;
-            const themeSelect = host.shadowRoot.getElementById('select-theme-style');
-            const selectedTheme = themeSelect ? themeSelect.value : 'off';
-
-            if (isHideChecked || selectedTheme === 'off') {
+            if (isCustomPanelDisabled()) {
                 if (lbPanel.classList.contains('active')) {
                     lbPanel.className = '';
                     lbPanel.innerHTML = '';
@@ -169,6 +193,12 @@
                 }
                 return;
             }
+
+            const host = document.getElementById('menu-host');
+            if (!host || !host.shadowRoot) return;
+
+            const themeSelect = host.shadowRoot.getElementById('select-theme-style');
+            const selectedTheme = themeSelect ? themeSelect.value : 'off';
 
             let sortedRanks = Object.keys(playersMap).map(Number).sort((a, b) => a - b);
             if (sortedRanks.length === 0) return;
