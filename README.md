@@ -6,7 +6,11 @@ An advanced extension to customize and enhance your **Agar.io** gameplay experie
 
 ---
 
-## Features
+## Features old
+
+
+
+## Features old
 - **UI Themes & Tweaks:** Switch between multiple modern and stylish leaderboard themes.
 - **Ball Color Customization:** Set custom fixed ball colors or enable the RGB animation effect.
 - **Smart Map Bounds:** Enable map boundary lines for better spatial awareness.
