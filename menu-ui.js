@@ -41,7 +41,9 @@
         'plugin-mapbounds.js',
         'plugin-ball-customizer.js',
         'plugin-map-customizer.js',
-        'plugin-leaderboard.js'
+        'plugin-leaderboard.js',
+        'plugin-radar-map.js',
+        'agario-custom-bg.js'
     ];
     plugins.forEach(src => {
         const s = document.createElement('script');
@@ -206,48 +208,107 @@
     menu.innerHTML = `
         <div class="header-container" id="menu-header">
             <div class="header-left">
-                <h2>Menu Mod - v1.0</h2>
+                <h2>Menu Mod - v1.1</h2>
                 <button id="lang-flag-btn" title="Change Language">🇪🇬 AR</button>
             </div>
             <button class="minimize-btn" id="btn-minimize" title="Minimize">-</button>
         </div>
         <hr>
         
-        <!-- قسم خطوط المساعدة -->
-        <div style="border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 12px; margin-bottom: 14px; background-color: rgba(5, 7, 12, 0.65);">
-            <div class="section-title" style="color: #4ade80;">
-                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-8h2v2h4v2h-4v2h-2V5z"/></svg>
-                <span data-i18n="helper_lines">خطوط مساعدة</span>
-            </div>
-            <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
-                <input id="chk-enable-helper-lines" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
-                <label for="chk-enable-helper-lines" style="cursor: pointer;" data-i18n="enable_helper">تفعيل خطوط التوصيل</label>
-            </div>
-            <div style="margin-top: 12px; font-size: 13px; color: #94a3b8;">
-                <span data-i18n="opacity">شفافية الخط</span>: <span id="opacity-val">70</span>%
-                <input id="sld-helper-opacity" type="range" min="1" max="100" value="70" step="1" style="width: 100%; margin-top: 5px; accent-color: #4ade80;">
-            </div>
-        </div>
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
 
         <!-- قسم تخصيص الخريطة والشبكة -->
         <div style="border: 1px solid #3b82f6; border-radius: 10px; padding: 12px; margin-bottom: 14px; background-color: rgba(5, 7, 12, 0.65);">
             <div class="section-title" style="color: #3b82f6;">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 20h2.09l1.61-1.61C9.58 18.8 10.75 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-                <span data-i18n="map_custom">تخصيص الخريطة</span>
-            </div>
-            <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
+        
+    <span data-i18n="map_custom">الخلفية والشبكة المخصصة</span>
+
+      
+    </div>
+    
+    <!-- زر التفعيل -->
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
+        <input id="chk-enable-custom-bg" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="chk-enable-custom-bg" style="cursor: pointer;" data-i18n="enable_custom_bg">تفعيل الخلفية والشبكة</label>
+    </div>
+
+    <!-- نوع الخلفية -->
+    <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 5px; font-size: 14px; color: #cbd5e1;">
+        <label for="select-bg-type" style="font-size: 13px; color: #94a3b8;" data-i18n="bg_type_label">نوع الخلفية:</label>
+        <select id="select-bg-type" style="background-color: #0f172a; color: #fff; border: 1px solid #3b82f6; border-radius: 6px; padding: 6px; cursor: pointer;">
+            <option value="solid" data-i18n="bg_solid">لون / أسود</option>
+            <option value="url" data-i18n="bg_url">رابط صورة (URL)</option>
+            <option value="file" data-i18n="bg_file">رفع صورة من الجهاز</option>
+        </select>
+    </div>
+
+    <!-- لون الخلفية الصلبة -->
+    <div id="group-bg-color" style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
+        <label for="input-bg-color" data-i18n="bg_color_label">لون الخلفية:</label>
+        <input id="input-bg-color" type="color" value="#000000" style="cursor: pointer; background: none; border: none; width: 35px; height: 25px;">
+        
+    </div>
+
+    <!-- رابط الصورة -->
+    <div id="group-bg-url" style="margin-top: 10px; display: none; flex-direction: column; gap: 5px; font-size: 13px; color: #cbd5e1;">
+        <label for="input-bg-url" data-i18n="bg_url_label">رابط الصورة:</label>
+        <input id="input-bg-url" type="text" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 6px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2); color: #fff; border-radius: 4px;">
+    </div>
+
+    <!-- رفع صورة من الجهاز -->
+    <div id="group-bg-file" style="margin-top: 10px; display: none; flex-direction: column; gap: 5px; font-size: 13px; color: #cbd5e1;">
+        <label for="input-bg-file" data-i18n="bg_file_label">اختر صورة:</label>
+        <input id="input-bg-file" type="file" accept="image/*" style="width: 100%; font-size: 11px; color: #94a3b8; cursor: pointer;">
+    </div>
+
+    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;">
+
+    <!-- لون الشبكة -->
+    <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #cbd5e1;">
+        <label for="input-grid-color" data-i18n="grid_color_label">لون الشبكة:</label>
+        <input id="input-grid-color" type="color" value="#0066ff" style="cursor: pointer; background: none; border: none; width: 35px; height: 25px;">
+    </div>
+
+    <!-- شفافية الشبكة -->
+    <div style="margin-top: 10px; font-size: 13px; color: #94a3b8;">
+        <span data-i18n="opacity">شفافية</span>: <span id="span-grid-opacity-val">0.4</span>
+        <input id="range-grid-opacity" type="range" min="0" max="1" step="0.05" value="0.4" style="width: 100%; margin-top: 5px; accent-color: #3b82f6;">
+    </div>
+
+    <!-- حجم مربعات الشبكة -->
+    <div style="margin-top: 10px; font-size: 13px; color: #94a3b8;">
+        <span data-i18n="size-map">حجم المربعات</span>: <span id="span-grid-size-val">50</span>px
+        <input id="range-grid-size" type="range" min="10" max="200" step="5" value="50" style="width: 100%; margin-top: 5px; accent-color: #3b82f6;">
+    </div>
+
+    <!-- تخانة خطوط الشبكة -->
+    <div style="margin-top: 10px; font-size: 13px; color: #94a3b8;">
+        <span data-i18n="size-line-map">حجم خطوط الشبكة</span>: <span id="span-grid-thickness-val">1.5</span>px
+        <input id="range-grid-thickness" type="range" min="0.5" max="5" step="0.5" value="1.5" style="width: 100%; margin-top: 5px; accent-color: #3b82f6;">
+    </div>
+    
+     <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;">
+
+    
+     <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
                 <input id="chk-invert-colors" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
                 <label for="chk-invert-colors" style="cursor: pointer;" data-i18n="invert_colors">عكس الألوان</label>
             </div>
-        </div>
-
-        <!-- قسم الثيمات -->
-        <div style="border: 1px solid #3b82f6; border-radius: 10px; padding: 12px; margin-bottom: 14px; background-color: rgba(5, 7, 12, 0.65);">
-            <div class="section-title" style="color: #3b82f6;">
-                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 20h2.09l1.61-1.61C9.58 18.8 10.75 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-                <span data-i18n="ui_themes">الثيمات</span>
-            </div>
-            <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1; margin-bottom: 10px;">
+    
+     <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;">
+     
+     
+      <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1; margin-bottom: 10px;">
                 <input id="chk-hide-leaderboard" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
                 <label for="chk-hide-leaderboard" style="cursor: pointer;" data-i18n="hide_leaderboard">إخفاء لوحة الصدارة</label>
             </div>
@@ -288,13 +349,76 @@
                     <option value="steel" data-i18n="theme_steel">31. فولاذي بارد (Cold Steel)</option>
                 </select>
             </div>
-        </div>
+     
+     
+        <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;">
+     
+     
+    <!-- زر تفعيل خريطة الرادار -->
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
+        <input id="chk-enable-radar-map" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="chk-enable-radar-map" style="cursor: pointer;" data-i18n="enable_radar">تفعيل خريطة الرادار المصغرة</label>
+    </div>
+
+    <!-- قائمة اختيار الثيمات المستقلة للرادار -->
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #cbd5e1;">
+        <label for="select-radar-theme" style="font-size: 13px; color: #94a3b8;" data-i18n="radar_theme_label">ثيم خريطة الرادار:</label>
+        <select id="select-radar-theme" style="background-color: #0f172a; color: #fff; border: 1px solid #3b82f6; border-radius: 6px; padding: 6px; cursor: pointer;">
+            <option value="leaderboard-match" data-i18n="theme_leaderboard_match">مطابق لثيم قائمة الصدارة (Leaderboard)</option>
+            <option value="neon" data-i18n="theme_neon">1. نيون متوهج (Cyber Neon)</option>
+            <option value="glass" data-i18n="theme_glass">2. عصري شفاف (Glassmorphism)</option>
+            <option value="minimal" data-i18n="theme_minimal">3. مينيمال بسيط (Minimalist)</option>
+            <option value="cyber-red" data-i18n="theme_cyber_red">4. سايبربانك أحمر (Cyberpunk Red)</option>
+            <option value="matrix" data-i18n="theme_matrix">5. أكسون أخضر (Matrix Green)</option>
+            <option value="gold" data-i18n="theme_gold">6. ذهبي فاخر (Royal Gold)</option>
+            <option value="silver" data-i18n="theme_silver">7. فضي معدني (Silver Metal)</option>
+            <option value="purple" data-i18n="theme_purple">8. أرجواني ملكي (Royal Purple)</option>
+            <option value="ocean" data-i18n="theme_ocean">9. أزرق محيطي (Ocean Blue)</option>
+            <option value="lavender" data-i18n="theme_lavender">10. لافندر ناعم (Soft Lavender)</option>
+            <option value="sunset" data-i18n="theme_sunset">11. غروب الشمس (Sunset Gradient)</option>
+            <option value="aurora" data-i18n="theme_aurora">12. شفق قطبي (Aurora Borealis)</option>
+            <option value="volcano" data-i18n="theme_volcano">13. بركان ملتهب (Volcanic Lava)</option>
+            <option value="space" data-i18n="theme_space">14. فضاء عميق (Deep Space)</option>
+            <option value="emerald" data-i18n="theme_emerald">15. جاردن أخضر (Emerald Garden)</option>
+            <option value="pink" data-i18n="theme_pink">16. وردي سكري (Bubblegum Pink)</option>
+            <option value="cappuccino" data-i18n="theme_cappuccino">17. كابتشينو دافئ (Warm Cappuccino)</option>
+            <option value="carbon" data-i18n="theme_carbon">18. كربون داكن (Dark Carbon)</option>
+            <option value="white" data-i18n="theme_white">19. أبيض ناصع (Pure White)</option>
+            <option value="retro" data-i18n="theme_retro">20. ريترو أركيد (Retro Arcade)</option>
+            <option value="halloween" data-i18n="theme_halloween">21. هالوين برتقالي (Halloween Orange)</option>
+            <option value="turquoise" data-i18n="theme_turquoise">22. تركواز منعش (Turquoise Breeze)</option>
+            <option value="sapphire" data-i18n="theme_sapphire">23. ياقوتي أزرق (Sapphire Blue)</option>
+            <option value="jade" data-i18n="theme_jade">24. يشم أخضر (Jade Green)</option>
+            <option value="amber" data-i18n="theme_amber">25. عنبري دافئ (Amber Glow)</option>
+            <option value="lime" data-i18n="theme_lime">26. ليموني ساطع (Lime Electric)</option>
+            <option value="blueberry" data-i18n="theme_blueberry">27. توت أزرق (Blueberry Night)</option>
+            <option value="violet" data-i18n="theme_violet">28. بنفسجي داكن (Deep Violet)</option>
+            <option value="coral" data-i18n="theme_coral">29. مرجاني جذاب (Coral Reef)</option>
+            <option value="copper" data-i18n="theme_copper">30. نحاسي عتيق (Antique Copper)</option>
+            <option value="steel" data-i18n="theme_steel">31. فولاذي بارد (Cold Steel)</option>
+        </select>
+    </div>
+     
+</div>
+    
+    
+    
+    
+    
+
+
+
+
+
+
 
         <!-- قسم الكور -->
         <div style="border: 1px solid #10b981; border-radius: 10px; padding: 12px; margin-bottom: 14px; background-color: rgba(5, 7, 12, 0.65);">
+        
+        
             <div class="section-title" style="color: #10b981;">
                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                <span data-i18n="ball_custom">تخصيص الكور</span>
+                <span data-i18n="custom">تخصيص الكور</span>
             </div>
             <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
                 <input id="chk-enable-ball-custom" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
@@ -308,7 +432,24 @@
                 <input id="chk-rgb-effect" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
                 <label for="chk-rgb-effect" style="cursor: pointer;" data-i18n="rgb_effect">تأثير الألوان المتحركة (RGB)</label>
             </div>
-        </div>
+                    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;">
+            
+            
+            <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: #cbd5e1;">
+                <input id="chk-enable-helper-lines" type="checkbox" style="width: 18px; height: 18px; cursor: pointer;">
+                <label for="chk-enable-helper-lines" style="cursor: pointer;" data-i18n="enable_helper">تفعيل خطوط التوصيل</label>
+            </div>
+            <div style="margin-top: 12px; font-size: 13px; color: #94a3b8;">
+                <span data-i18n="opacity">شفافية</span>: <span id="opacity-val">70</span>%
+                <input id="sld-helper-opacity" type="range" min="1" max="100" value="70" step="1" style="width: 100%; margin-top: 5px; accent-color: #4ade80;">
+            </div>
+            
+          
+            
+            
+        
+</div>
+
 
         <!-- حدود الخريطة -->
         <div style="border: 1px solid #ff3300; border-radius: 10px; padding: 12px; margin-bottom: 14px; background-color: rgba(5, 7, 12, 0.65);">
@@ -578,29 +719,38 @@
         menu.addEventListener(evt, resetIdleTimer);
     });
 
-    shadow.querySelectorAll('input, select').forEach(elem => {
-        const savedValue = localStorage.getItem('plugin_state_' + elem.id);
-        if (savedValue !== null) {
-            if (elem.type === 'checkbox') elem.checked = (savedValue === 'true');
-            else elem.value = savedValue;
-            if (elem.id === 'sld-helper-opacity') {
-                shadow.getElementById('opacity-val').textContent = elem.value;
-            }
+   shadow.querySelectorAll('input, select').forEach(elem => {
+    const savedValue = localStorage.getItem('plugin_state_' + elem.id);
+    if (savedValue !== null) {
+        if (elem.type === 'checkbox') {
+            elem.checked = (savedValue === 'true');
+        } else if (elem.type !== 'file') { // تم استثناء حقل الملفات لمنع الخطأ الأمني
+            elem.value = savedValue;
         }
-        
-        const saveAndSend = () => {
-            const val = elem.type === 'checkbox' ? elem.checked : elem.value;
-            localStorage.setItem('plugin_state_' + elem.id, val);
-            if (elem.id === 'sld-helper-opacity') {
-                shadow.getElementById('opacity-val').textContent = elem.value;
-            }
-            sendSettingsToPage();
-            resetIdleTimer();
-        };
 
-        elem.addEventListener('input', saveAndSend);
-        elem.addEventListener('change', saveAndSend);
-    });
+        if (elem.id === 'sld-helper-opacity') {
+            const opacityVal = shadow.getElementById('opacity-val');
+            if (opacityVal) opacityVal.textContent = elem.value;
+        }
+    }
+    
+    const saveAndSend = () => {
+        // حقول الـ file لا نحتاج لحفظ قيمتها في الـ localStorage لأن المتصفح يمنع ذلك
+        if (elem.type === 'file') return;
+
+        const val = elem.type === 'checkbox' ? elem.checked : elem.value;
+        localStorage.setItem('plugin_state_' + elem.id, val);
+        if (elem.id === 'sld-helper-opacity') {
+            const opacityVal = shadow.getElementById('opacity-val');
+            if (opacityVal) opacityVal.textContent = elem.value;
+        }
+        sendSettingsToPage();
+        resetIdleTimer();
+    };
+
+    elem.addEventListener('input', saveAndSend);
+    elem.addEventListener('change', saveAndSend);
+});
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'F1') {
