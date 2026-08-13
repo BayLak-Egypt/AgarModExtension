@@ -6,13 +6,17 @@ An advanced extension to customize and enhance your **Agar.io** gameplay experie
 
 ---
 
-## Features New 
+## Features New V1.1
+
 - ⭐ **Fixed:** hide basic leaderborder.
 - ⭐ **Fixed:** Rearranging the elements
+- ⭐ **ADD:** Background FULL Control
+- ⭐ **ADD:** Grid Color and Size block and blod line
+- ⭐ **ADD:** Mini Map and full control change theme minimap
 
 
 
-## Features old
+## Features OLD V1.0
 - **UI Themes & Tweaks:** Switch between multiple modern and stylish leaderboard themes.
 - **Ball Color Customization:** Set custom fixed ball colors or enable the RGB animation effect.
 - **Smart Map Bounds:** Enable map boundary lines for better spatial awareness.
