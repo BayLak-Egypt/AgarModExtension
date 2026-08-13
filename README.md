@@ -1,6 +1,11 @@
+<img width="1288" height="696" alt="Screenshot from 2026-08-13 23-29-59" src="https://github.com/user-attachments/assets/a2cf9d75-7bcf-4fdd-a69c-9e8a6c0caf2f" />
+
+<img width="1288" height="696" alt="Screenshot from 2026-08-13 23-25-34" src="https://github.com/user-attachments/assets/42989828-02cd-4d8c-a484-274b634f8c2d" />
+
+
 <img width="1288" height="696" alt="Screenshot from 2026-08-13 22-56-48" src="https://github.com/user-attachments/assets/b7b43c0d-1571-4fe8-8f34-0f2c560027fd" />
 
-<img width="1283" height="683" alt="Screenshot from 2026-08-10 13-48-13" src="https://github.com/user-attachments/assets/f610d1d1-d95d-4aa3-a604-155a0ebdd7a9" />
+
 
 # Agar.io Mod Extension
 
